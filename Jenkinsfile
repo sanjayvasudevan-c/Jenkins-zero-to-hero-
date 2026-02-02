@@ -2,41 +2,44 @@ pipeline {
     agent any
 
     stages {
-        stage('Cleanup Workspace') {
-            steps {
-                echo 'Cleaning up previous build artifacts...'
-                // This deletes everything in the workspace before the build starts
-                cleanWs()
-            }
-        }
 
-        stage('Checkout SCM') {
+        stage('Checkout Code') {
             steps {
-                echo 'Pulling code from Git...'
-                // This triggers the automatic checkout of the repo configured in the job
                 checkout scm
             }
         }
 
-        stage('Verify Files') {
+        stage('Check Node Version') {
             steps {
-                echo 'Checking files in the workspace:'
-                sh 'ls -ltr'
+                sh 'node -v'
+                sh 'npm -v'
             }
         }
-        
-        // You can add Build or Test stages here later
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Run App Smoke Test') {
+            steps {
+                sh '''
+                node app.js &
+                sleep 5
+                curl -f http://localhost:5000 || exit 1
+                pkill node
+                '''
+            }
+        }
     }
 
     post {
-        always {
-            echo 'Pipeline execution finished.'
-        }
         success {
-            echo 'Build successful!'
+            echo 'Pipeline completed successfully!'
         }
         failure {
-            echo 'Build failed. Check the logs.'
+            echo 'Pipeline failed.'
         }
     }
 }
