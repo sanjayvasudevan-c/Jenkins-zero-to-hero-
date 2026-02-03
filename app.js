@@ -1,17 +1,10 @@
-const http = require('http');
-
-const PORT = 5000;
+const http = require('http')
 
 const server = http.createServer((req, res) => {
-  if (req.url === '/' && req.method === 'GET') {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Server is running');
-  } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not Found');
-  }
-});
+  res.end("Server running")
+}) 
 
-server.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+server.listen(5000, () => {
+  console.log("Started")
+})x   // ← extra character causes crash
+
