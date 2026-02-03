@@ -1,9 +1,12 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:18-alpine'
+        }
+    }
 
     stages {
-
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
                 checkout scm
             }
@@ -27,19 +30,11 @@ pipeline {
                 sh '''
                 node app.js &
                 sleep 5
-                curl -f http://localhost:5000 || exit 1
+                wget -qO- http://localhost:5000 || exit 1
                 pkill node
                 '''
             }
         }
     }
-
-    post {
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed.'
-        }
-    }
 }
+
