@@ -28,7 +28,13 @@ pipeline {
 	stage('Lint code'){
 	    steps {
 		sh 'npm run lint'
-		}
+	    }
+	}
+         
+        stage('prettier-format:check') {
+	    steps {
+		sh 'npm run format:check'	
+            }	
 	}
 
         stage('Run App Smoke Test') {

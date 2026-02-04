@@ -4,11 +4,15 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "format:check": "prettier --check app.js",
+    "format:write": "prettier --write app.js"
+
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "eslint": "^9.39.2",
-    "globals": "^17.3.0"
+    "globals": "^17.3.0",
+    "prettier": "^3.8.1"
   }
 }
