@@ -25,6 +25,12 @@ pipeline {
             }
         }
 
+	stage('Lint code'){
+	    steps {
+		sh 'npm run lint'
+		}
+	}
+
         stage('Run App Smoke Test') {
             steps {
                 sh '''
