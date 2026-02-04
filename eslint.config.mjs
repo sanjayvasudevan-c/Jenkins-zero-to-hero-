@@ -1,6 +1,6 @@
 export default [
   {
-    ignores: ['node_modules/**', 'jenkins-data/**', '.git/**'],
+    ignores: ['node_modules/**', 'jenkins-data/**', '.git/**']
   },
   {
     files: ['**/*.js'],
@@ -11,14 +11,12 @@ export default [
         console: 'readonly',
         module: 'readonly',
         require: 'readonly',
-        process: 'readonly',
-      },
+        process: 'readonly'
+      }
     },
     rules: {
       'no-unused-vars': 'warn',
-      'no-undef': 'error',
-    },
-  },
+      'no-undef': 'error'
+    }
+  }
 ];
-
-=
