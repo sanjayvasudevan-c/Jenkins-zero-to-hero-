@@ -1,8 +1,21 @@
-import js from "@eslint/js";
-import globals from "globals";
-import { defineConfig } from "eslint/config";
+export default [
+  {
+    ignores: [
+      "node_modules/**",
+      "jenkins-data/**",
+      ".git/**"
+    ]
+  },
+  {
+    files: ["**/*.js"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "commonjs"
+    },
+    rules: {
+      "no-unused-vars": "warn",
+      "no-undef": "error"
+    }
+  }
+];
 
-export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: globals.node } },
-  { files: ["**/*.js"], languageOptions: { sourceType: "commonjs" } },
-]);
