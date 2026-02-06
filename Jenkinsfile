@@ -48,13 +48,12 @@ pipeline {
    	    steps {
 		withSonarQubeEnv('SonarQube') {
             	   sh '''
-                	sonar-scanner \
+         		npx sonar-scanner \
                 	-Dsonar.projectKey=my-node-app \
                 	-Dsonar.sources=. \
                 	-Dsonar.host.url=http://host.docker.internal:9000 \
                		-Dsonar.exclusions=**/node_modules/** \
-                	-Dsonar.verbose=true \
-          		-Dsonar.branch.name=${BRANCH_NAME}
+                	-Dsonar.verbose=true 
             	    '''
         	    }
    	    }
