@@ -42,24 +42,31 @@ pipeline {
 		sh 'npm run format:check'	
             }	
 	}
-        
-	stage('sonarqube'){
-	    steps {
-		
-	    }
-	}
+        		
 
 	stage('SonarQube Analysis') {
-            steps {
-                // This block connects the 'Name' from your screenshot to this stage
-                withSonarQubeEnv("${SONAR_NAME}") {
-                    sh 'npx sonar-scanner \
-                        -Dsonar.projectKey=my-node-app \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=http://host.docker.internal:9000'
-                }
-            }
+   	    steps {
+		withSonarQubeEnv('SonarQube') {
+            	   sh '''
+                	npx sonar-scanner \
+                	-Dsonar.projectKey=my-node-app \
+                	-Dsonar.sources=. \
+                	-Dsonar.host.url=http://host.docker.internal:9000 \
+               		-Dsonar.exclusions=**/node_modules/** \
+                	-Dsonar.verbose=true \
+          		-Dsonar.branch.name=${BRANCH_NAME}
+            	    '''
+        	    }
+   	    }
 	}
+
+	stage("Quality Gate") {
+            steps {
+	    	timeout(time: 5, unit: 'MINUTES') { 
+                waitForQualityGate abortPipeline: true 
+       		 }
+  	    }
+        }
 
         stage('Run App Smoke Test') {
             steps {
