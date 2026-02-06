@@ -3,6 +3,7 @@ pipeline {
     agent {
         docker {
             image 'node:18-alpine'
+	    args '--add-host=host.docker.internal:host-gateway'
         }
     }
 
