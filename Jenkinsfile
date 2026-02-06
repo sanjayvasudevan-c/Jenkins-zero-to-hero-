@@ -49,7 +49,7 @@ pipeline {
    	    steps {
 		withSonarQubeEnv('SonarQube') {
             	   sh '''
-         		npx sonar-scanner-node \
+         		npx sonarqube-scanner \
                 	-Dsonar.projectKey=my-node-app \
                 	-Dsonar.sources=. \
                 	-Dsonar.host.url=http://host.docker.internal:9000 \
