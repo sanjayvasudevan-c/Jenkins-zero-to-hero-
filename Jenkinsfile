@@ -53,7 +53,7 @@ pipeline {
          		npx sonarqube-scanner \
                 	-Dsonar.projectKey=my-node-app \
                 	-Dsonar.sources=. \
-                	-Dsonar.host.url=http://sonarqube:9000 \
+                	-Dsonar.host.url=http://host.docker.internal:9000 \
                		-Dsonar.exclusions=**/node_modules/** \
                 	-Dsonar.verbose=true 
             	    '''
