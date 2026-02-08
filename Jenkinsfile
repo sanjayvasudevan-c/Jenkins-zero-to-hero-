@@ -28,7 +28,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps { 
-	        sh 'apk add --no-cache libc6-compat'
+	        
                 sh 'npm install'
             }
         }
