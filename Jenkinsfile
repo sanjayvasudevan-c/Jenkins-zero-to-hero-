@@ -87,7 +87,8 @@ pipeline {
     }
 
     post {
-        failure {
+    failure {
+        node('built-in') {   // 👈 force Jenkins controller
             emailext(
                 to: 'sankir25092007@gmail.com',
                 subject: "❌ FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
@@ -102,4 +103,6 @@ pipeline {
             )
         }
     }
+}
+
 }
