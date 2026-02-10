@@ -79,6 +79,21 @@ pipeline {
                 '''
             }
         }
+		 post {
+        failure {
+            emailext(
+                to: 'sankir25092007@gmail.com',
+                subject: "❌ FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                <b>Build Failed</b><br>
+                Job: ${env.JOB_NAME}<br>
+                Build Number: ${env.BUILD_NUMBER}<br>
+                Result: ${currentBuild.currentResult}<br>
+                URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a>
+                """
+            )
+        }
+    }
     }
 }
 
